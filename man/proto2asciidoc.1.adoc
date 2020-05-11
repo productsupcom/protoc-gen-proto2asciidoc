@@ -1,0 +1,28 @@
+// tag::manpage[]
+= proto2asciidoc(1)
+Yorick Terweijden
+{version}
+:doctype: manpage
+:manmanual: PROTO2ASCIIDOC
+:mansource: PROTO2ASCIIDOC
+:man-linkstyle: pass:[blue R < >]
+
+== Name
+proto2asciidoc - Generate AsciiDoc documentation based on Protobuf definition 
+files. Either just the Messages/Enums or generate full documentation which can
+include files produced by other tools.
+
+== Synopsis
+
+*proto2asciidoc* [--source FILE]
+
+*proto2asciidoc* [--source FILE --out docs/generated/api.adoc]
+
+*proto2asciidoc* [--source FILE --out docs/generated/api.adoc --api-docs]
+
+== Options
+include::../cmd/proto2asciidoc/main.go[tag=options,indent=0]
+
+// end::manpage[]
+
+include::../docs/proto2asciidoc.adoc[]

@@ -1,0 +1,14 @@
+== About
+
+proto2asciidoc generates asciidoc documentation from a Protobuffer definition
+file. The goal of the project was to prevent API documentation inconsistenties
+between the actual API and the docs.
+
+By generating the code from the Protobuf definition the documentation is always
+in sync.
+
+It can either generate only the Protobuffer Messages/Enums as output or full
+api-docs output depending on the flags passed.
+
+Can be used in conjunction with https://github.com/productsupcom/code2asciidoc[code2asciidoc]
+to produce even more consistent API documentation.

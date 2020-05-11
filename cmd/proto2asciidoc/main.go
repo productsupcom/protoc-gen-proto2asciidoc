@@ -46,17 +46,22 @@ func init() {
 
 		*--f*
 			Overwrite the existing out file
+
 		*--no-header*
 			Do not set a document header and ToC
+
 		*--api-dir*
 			Relative path from the out to the api dir. E.g. docs/generated/api.adoc is the out,
 			the api dir is docs/api/
 			then set --api-dir ../api
-			This path will be used to set the includes for asciidoc
+
+		This path will be used to set the includes for asciidoc
+
 		*--api-docs*
 			Generate a full API documentation, including files from the out file relative dir
 			../api/SERVICE/endpoint.adoc.
-			Do not set if you only want Messages and/or Enums
+
+		Do not set if you only want Messages and/or Enums
 		end::options[]
 	*/
 	flags = pflag.NewFlagSet("proto2asciidoc", pflag.ContinueOnError)
