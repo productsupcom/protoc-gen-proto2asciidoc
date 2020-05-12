@@ -44,7 +44,7 @@ func init() {
 		*--out*
 			File to write to, if left empty writes to stdout
 
-		*--f*
+		*--overwrite, -f*
 			Overwrite the existing out file
 
 		*--no-header*
@@ -61,16 +61,45 @@ func init() {
 			Generate a full API documentation, including files from the out file relative dir
 			../api/SERVICE/endpoint.adoc.
 
+		This will include every file in the appropriate location, so e.g. if you have declared Service Foo with endpoint
+		Do() then it will check for these two files:
+
+		/docs/api/foo.adoc
+		/docs/api/foo/do.adoc
+
+		Other files it will check for are:
+
+		/docs/about.adoc
+		/docs/examples.adoc
+		/docs/api/errors.adoc
+
 		Do not set if you only want Messages and/or Enums
 		end::options[]
 	*/
 	flags = pflag.NewFlagSet("proto2asciidoc", pflag.ContinueOnError)
 	flags.StringVar(&sourceFile, "source", "", "Source Protobuf file to parse into AsciiDoc, recommended is to set the absolute path.")
 	flags.StringVar(&outFile, "out", "", "File to write to, if left empty writes to stdout")
-	flags.BoolVar(&overwrite, "f", false, "Overwrite the existing out file")
+	flags.BoolVarP(&overwrite, "overwrite", "f", false, "Overwrite the existing out file")
 	flags.BoolVar(&noheader, "no-header", false, "Do not set a document header and ToC")
 	flags.BoolVar(&apidocs, "api-docs", false, `Generate a full API documentation, including files from the out file relative dir
-../api/SERVICE/endpoint.adoc.
+	../api/SERVICE/endpoint.adoc.
+
+This will include every file in the appropriate location, so e.g. if you have declared Service Foo with endpoint
+Do() then it will check for these two files:
+
+/docs/api/foo.adoc
+/docs/api/foo/do.adoc
+
+It will also check for command documentation
+
+/docs/cmd/foo.adoc
+
+Other files it will check for are:
+
+/docs/about.adoc
+/docs/examples.adoc
+/docs/api/errors.adoc
+
 Do not set if you only want Messages and/or Enums`)
 	flags.StringSliceVar(&samplefiles, "sample-files", []string{}, "List of files to use as sample variables. api/foo_samples.adoc becomes :foo_samples:")
 	flags.StringVar(&apidir, "api-dir", "../api", `Relative (or absolute) path from the out to the api dir. E.g. docs/generated/api.adoc is the out,
@@ -161,8 +190,16 @@ Version {version}
 	if apidocs {
 		var preface bytes.Buffer
 
-		// preface.WriteString("== Preface\n")
-		preface.WriteString("include::../about.adoc[leveloffset=+1]\n")
+		if file := docPaths.GetFilepathFor("../about.adoc"); file != "" {
+			preface.WriteString("// start included about.adoc\n")
+			preface.WriteString("include::" + file + "[leveloffset=+1]\n")
+			preface.WriteString("// end included about.adoc\n\n")
+		}
+		if file := docPaths.GetFilepathFor("../examples.adoc"); file != "" {
+			preface.WriteString("// start included examples.adoc\n")
+			preface.WriteString("include::" + file + "[leveloffset=+1]\n")
+			preface.WriteString("// end included examples.adoc\n\n")
+		}
 
 		preface.WriteString("\n// start variables for the REST API endpoints\n")
 		for _, service := range services.Collection() {
@@ -175,14 +212,14 @@ Version {version}
 				))
 			}
 			preface.WriteString("// end variables for the REST API endpoints\n\n")
+		}
 
-			// TODO: get the relative path from the ProcessPath method or smth
-			file := service.GetPaths().GetFilepathFor("../" + strings.ToLower(service.GetName()) + ".adoc")
-			if file != "" {
-				preface.WriteString("[#" + strings.ToLower(service.GetName()) + "_command]\n")
-				preface.WriteString("== " + service.GetName() + " Command\n\n")
-				preface.WriteString("include::" + file + "[leveloffset=+1]\n")
-			}
+		// get the cmd docs
+		files := docPaths.GetFilesInDir("../cmd")
+		for _, file := range files {
+			preface.WriteString("// start included files from the /cmd directory\n")
+			preface.WriteString("include::" + file + "[leveloffset=+1]\n")
+			preface.WriteString("// end included files from the /cmd directory\n\n")
 		}
 
 		if preface.Len() != 0 {
@@ -191,7 +228,9 @@ Version {version}
 
 		buf.WriteString(services.GetOutput())
 
-		buf.WriteString("include::../api/errors.adoc[leveloffset=+1]\n")
+		if file := docPaths.GetFilepathFor("errors.adoc"); file != "" {
+			buf.WriteString("include::" + file + "[leveloffset=+1]\n")
+		}
 		buf.WriteString("== Protobuffer Declarations\n")
 		buf.WriteString("=== Protobuf Enums\n")
 		buf.WriteString("\n:leveloffset: +2\n")

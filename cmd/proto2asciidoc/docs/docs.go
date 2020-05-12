@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"path/filepath"
 	"sort"
 	"strconv"
 	"strings"
@@ -471,6 +472,7 @@ func (s *protoServiceField) getSection() string {
 	return base.String()
 }
 
+// GetFilePath looks for a file inside the api/ directory
 func (p DocPaths) GetFilepathFor(filename string) string {
 	dir, _ := path.Split(p.Destination)
 	relative := p.ApiDir + "/" + filename
@@ -488,6 +490,38 @@ func (p DocPaths) GetFilepathFor(filename string) string {
 
 	}
 	return ""
+}
+
+func (p DocPaths) GetFilesInDir(target string) []string {
+	dir, _ := path.Split(p.Destination)
+	relative := p.ApiDir + "/" + target
+	dir += relative
+	if info, err := os.Stat(dir); err == nil {
+		if !info.IsDir() {
+			// not a dir
+			return []string{}
+		}
+
+		asciidocPath := relative
+		// fix the path prefix for asciidoc
+		if strings.Contains(relative, p.ApiDir+"/../") {
+			asciidocPath = target
+		}
+
+		// check the contents of the dir
+		var files []string
+		filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
+			if !info.IsDir() {
+				// strip off the beginning of the path for asciidoc
+				files = append(files, filepath.Join(asciidocPath, filepath.Base(path)))
+			}
+			return nil
+		})
+
+		return files
+	}
+
+	return []string{}
 }
 
 func (d *docBaseStruct) GetName() string {

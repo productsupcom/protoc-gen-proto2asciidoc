@@ -1,0 +1,26 @@
+syntax = "proto3";
+package examples;
+
+// Example for the generation
+message Example {
+  string some_string = 1;
+  int32 some_int = 2;
+}
+
+message Empty {}
+
+enum Format {
+  YAML = 1;
+  JSON = 2;
+  CSV = 3;
+}
+
+service SomeService {
+  rpc SomeEndpoint(Example) returns (Empty) {}
+
+  rpc SomeEndpointWithREST(Empty) returns (Example) {
+    option (google.api.http) = {
+      get: "/v1/someservice/example",
+    };
+  }
+}

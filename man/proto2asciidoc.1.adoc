@@ -24,5 +24,4 @@ include files produced by other tools.
 include::../cmd/proto2asciidoc/main.go[tag=options,indent=0]
 
 // end::manpage[]
-
-include::../docs/proto2asciidoc.adoc[]
+include::../docs/about.adoc[]

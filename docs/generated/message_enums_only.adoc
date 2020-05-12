@@ -1,0 +1,93 @@
+= Protobuffer Declarations
+:toc: left
+:toclevels: 4
+:true-icon: ✅
+:false-icon: ❌
+
+// WARNING 
+// NEW THIS FILE IS GENERATED. DO NOT EDIT.
+
+[#format_enum]
+== Format Enum
+// tag::Format[]
+
+
+.Format Overview
+[cols="2,1,3", options="header"]
+|===
+| Name | Integer | Comment
+|[[Format_YAML]]YAML
+|1
+|
+
+|[[Format_JSON]]JSON
+|2
+|
+
+|[[Format_CSV]]CSV
+|3
+|
+
+|===
+
+.Protobuf Source
+[%collapsible]
+====
+[source,protobuf]
+----
+include::examples/examples.proto[tag=Format]
+----
+====
+// end::Format[]
+
+[#empty_message]
+== Empty Message
+// tag::Empty[]
+
+
+.Empty Overview
+[cols="2,2,1,1", options="header"]
+|===
+| Name | Type | Repeated | Sequence
+
+|===
+
+.Protobuf Source
+[%collapsible]
+====
+[source,protobuf]
+----
+include::examples/examples.proto[tag=Empty]
+----
+====
+// end::Empty[]
+
+[#example_message]
+== Example Message
+// tag::Example[]
+Example for the generation
+
+.Example Overview
+[cols="2,2,1,1", options="header"]
+|===
+| Name | Type | Repeated | Sequence
+|[[example_some_string]]some_string
+|string
+|{false-icon}
+|1
+|[[example_some_int]]some_int
+|int32
+|{false-icon}
+|2
+|===
+
+.Protobuf Source
+[%collapsible]
+====
+[source,protobuf]
+----
+include::examples/examples.proto[tag=Example]
+----
+====
+// end::Example[]
+
