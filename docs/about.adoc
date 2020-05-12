@@ -13,6 +13,19 @@ api-docs output depending on the flags passed.
 Can be used in conjunction with https://github.com/productsupcom/code2asciidoc[code2asciidoc]
 to produce even more consistent API documentation.
 
+== Variables
+
+When using `api-docs` output, the tool will include a few variables. These can be
+set through asciidoctor variables.
+
+Example how to do it in a Makefile
+
+.Makefile
+[source,Makefile]
+----
+include::../Makefile[tag=variables]
+----
+
 == Extension
 
 This tool assumes the extension in `asciidoc/extension` will be loaded when using
@@ -27,4 +40,12 @@ Makefile can find it.
 [source,Makefile]
 ----
 include::../Makefile[tag=extension]
+----
+
+The following shows how the README (if on Github) you're currently reading 
+has been produced.
+
+.Optional formats
+----
+include::../Makefile[tag=markdown]
 ----

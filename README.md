@@ -15,6 +15,24 @@ api-docs output depending on the flags passed.
 Can be used in conjunction with [code2asciidoc](https://github.com/productsupcom/code2asciidoc)
 to produce even more consistent API documentation.
 
+## Variables
+
+When using `api-docs` output, the tool will include a few variables. These can be
+set through asciidoctor variables.
+
+Example how to do it in a Makefile
+
+**Makefile.**
+
+``` Makefile
+# Variables for the output
+PROJECT_NAME := proto2asciidoc
+PROJECT_NAME_STYLISHED := ${PROJECT_NAME}
+PROJECT_AUTHOR := Productsup GmbH
+PROJECT_REPO := https://github.com/productsupcom/proto2asciidoc
+GIT_VERSION_NAME := $(shell git describe --tags --exact-match 2> /dev/null || git symbolic-ref -q HEAD || git rev-parse HEAD)
+```
+
 ## Extension
 
 This tool assumes the extension in `asciidoc/extension` will be loaded when using
@@ -32,13 +50,24 @@ Makefile can find it.
 **Makefile.**
 
 ``` Makefile
+# Asciidoctor settings
 ASCIIDOC_EXT := -r ./asciidoctor/extensions/proto2asciidoc-inline-macro.rb
-ASCIIDOC_ATTRIBUTES := ${ASCIIDOC_EXT} -a project-name=${PROJECT_NAME_STYLISHED} -a project-author="Productsup GmbH" -a project-repo=${PROJECT_REPO} -a version=${GIT_VERSION_NAME}
+ASCIIDOC_ATTRIBUTES := ${ASCIIDOC_EXT} -a project-name=${PROJECT_NAME_STYLISHED} -a project-author="${PROJECT_AUTHOR}" -a project-repo=${PROJECT_REPO} -a version=${GIT_VERSION_NAME}
+
+# Example make for producing HTML
 html: docs
     @rm -rf html
     @mkdir html
     @asciidoctor ${ASCIIDOC_ATTRIBUTES} docs/generated/api.adoc -o html/api.html
 ```
+
+The following shows how the README (if on Github) you’re currently reading
+has been produced.
+
+**Optional formats.**
+
+    markdown:
+        @asciidoctor ${ASCIIDOC_ATTRIBUTES} docs/readme.adoc -b docbook -a leveloffset=+1 -o - | pandoc  --atx-headers --wrap=preserve -t gfm -f docbook - > README.md
 
 ## Example
 
