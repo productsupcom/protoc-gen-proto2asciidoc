@@ -12,7 +12,7 @@ To generate the docs you can run the following yourself:
 .Generate full api-docs
 [source,shell]
 ----
-./proto2asciidoc --source examples/examples.proto --out docs/generated/api.adoc --overwrite --api-docs
+./proto2asciidoc --source $(pwd)/examples/examples.proto --out docs/generated/api.adoc --overwrite --api-docs
 ----
 
 The following is useful for imported Protobuf declaration (e.g. from Google).
@@ -22,5 +22,5 @@ have to edit them by hand before commiting them to your repository.
 .Generate messages/enums only
 [source,shell]
 ----
-./proto2asciidoc --source examples/examples.proto --out docs/generated/message_enums_only.adoc --overwrite
+./proto2asciidoc --source $(pwd)examples/examples.proto --out docs/generated/message_enums_only.adoc --overwrite
 ----

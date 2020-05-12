@@ -12,3 +12,19 @@ api-docs output depending on the flags passed.
 
 Can be used in conjunction with https://github.com/productsupcom/code2asciidoc[code2asciidoc]
 to produce even more consistent API documentation.
+
+== Extension
+
+This tool assumes the extension in `asciidoc/extension` will be loaded when using
+AsciiDoctor.
+
+The following snippet can be used inside a Makefile.
+
+NOTE: Of course you have to ensure that the directory is in a location your
+Makefile can find it.
+
+.Makefile
+[source,Makefile]
+----
+include::../Makefile[tag=extension]
+----

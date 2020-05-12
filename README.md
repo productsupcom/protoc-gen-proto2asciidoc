@@ -15,6 +15,31 @@ api-docs output depending on the flags passed.
 Can be used in conjunction with [code2asciidoc](https://github.com/productsupcom/code2asciidoc)
 to produce even more consistent API documentation.
 
+## Extension
+
+This tool assumes the extension in `asciidoc/extension` will be loaded when using
+AsciiDoctor.
+
+The following snippet can be used inside a Makefile.
+
+<div class="note">
+
+Of course you have to ensure that the directory is in a location your
+Makefile can find it.
+
+</div>
+
+**Makefile.**
+
+``` Makefile
+ASCIIDOC_EXT := -r ./asciidoctor/extensions/proto2asciidoc-inline-macro.rb
+ASCIIDOC_ATTRIBUTES := ${ASCIIDOC_EXT} -a project-name=${PROJECT_NAME_STYLISHED} -a project-author="Productsup GmbH" -a project-repo=${PROJECT_REPO} -a version=${GIT_VERSION_NAME}
+html: docs
+    @rm -rf html
+    @mkdir html
+    @asciidoctor ${ASCIIDOC_ATTRIBUTES} docs/generated/api.adoc -o html/api.html
+```
+
 ## Example
 
 Please checkout the `docs/` directory for examples how to structure your docs
@@ -29,7 +54,7 @@ To generate the docs you can run the following yourself:
 **Generate full api-docs.**
 
 ``` shell
-./proto2asciidoc --source examples/examples.proto --out docs/generated/api.adoc --overwrite --api-docs
+./proto2asciidoc --source $(pwd)/examples/examples.proto --out docs/generated/api.adoc --overwrite --api-docs
 ```
 
 The following is useful for imported Protobuf declaration (e.g. from Google).
@@ -39,7 +64,7 @@ have to edit them by hand before commiting them to your repository.
 **Generate messages/enums only.**
 
 ``` shell
-./proto2asciidoc --source examples/examples.proto --out docs/generated/message_enums_only.adoc --overwrite
+./proto2asciidoc --source $(pwd)examples/examples.proto --out docs/generated/message_enums_only.adoc --overwrite
 ```
 
 ## Installation

@@ -1,26 +1,38 @@
 syntax = "proto3";
 package examples;
 
+// tag::Example[]
 // Example for the generation
 message Example {
   string some_string = 1;
   int32 some_int = 2;
 }
+// end::Example[]
 
+// tag::Empty[]
 message Empty {}
+// end::Empty[]
 
+// tag::Format[]
 enum Format {
   YAML = 1;
   JSON = 2;
   CSV = 3;
 }
+// end::Format[]
 
+// tag::SomeService[]
 service SomeService {
+  // tag::SomeEndpoint[]
   rpc SomeEndpoint(Example) returns (Empty) {}
+  // end::SomeEndpoint[]
 
+  // tag::SomeEndpointWithREST[]
   rpc SomeEndpointWithREST(Empty) returns (Example) {
     option (google.api.http) = {
       get: "/v1/someservice/example",
     };
   }
+  // end::SomeEndpointWithREST[]
 }
+// end::SomeService[]

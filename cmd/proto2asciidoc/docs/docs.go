@@ -443,9 +443,9 @@ func (s *protoServiceField) getSection() string {
 	base.WriteString("\n")
 	base.WriteString("\n|===")
 	base.WriteString("\n| Name | " + s.name)
-	base.WriteString("\n| Request Type | distrib:message[" + s.requestsType + "]")
+	base.WriteString("\n| Request Type | proto2asciidoc:message[" + s.requestsType + "]")
 	base.WriteString("\n| Streaming Request | " + boolIcon(s.requestsStream))
-	base.WriteString("\n| Return Type | distrib:message[" + s.returnsType + "]")
+	base.WriteString("\n| Return Type | proto2asciidoc:message[" + s.returnsType + "]")
 	base.WriteString("\n| Streaming Return | " + boolIcon(s.returnsStream))
 	base.WriteString("\n| REST Support | " + boolIcon(s.rest != nil))
 	if s.rest != nil {
@@ -642,12 +642,12 @@ func (f *protoMessageField) getType() string {
 	}
 	for _, enum := range f.GetEnumNames() {
 		if f.messageType == enum {
-			return fmt.Sprintf("distrib:enum[%s]", f.messageType)
+			return fmt.Sprintf("proto2asciidoc:enum[%s]", f.messageType)
 		}
 	}
 	for _, msg := range f.GetMessageNames() {
 		if f.messageType == msg {
-			return fmt.Sprintf("distrib:message[%s]", f.messageType)
+			return fmt.Sprintf("proto2asciidoc:message[%s]", f.messageType)
 		}
 	}
 	if f.messageType != "string" &&

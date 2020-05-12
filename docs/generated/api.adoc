@@ -36,20 +36,18 @@ include::../cmd/proto2asciidocs.adoc[leveloffset=+1]
 [#someservice_service]
 == SomeService Service
 // tag::SomeService[]
-
 include::../api/someservice.adoc[leveloffset=+2]
 <<<
 [#someservice_someendpoint]
 === SomeEndpoint Endpoint
 
-
 [cols=">1,<3"]
 
 |===
 | Name | SomeEndpoint
-| Request Type | distrib:message[Example]
+| Request Type | proto2asciidoc:message[Example]
 | Streaming Request | {false-icon}
-| Return Type | distrib:message[Empty]
+| Return Type | proto2asciidoc:message[Empty]
 | Streaming Return | {false-icon}
 | REST Support | {false-icon}
 |===
@@ -59,7 +57,7 @@ include::../api/someservice.adoc[leveloffset=+2]
 ====
 [source,protobuf]
 ----
-include::../../examples/examples.proto[tag=SomeEndpoint]
+include::/home/yt/proto2asciidoc/examples/examples.proto[tag=SomeEndpoint]
 ----
 ====
 include::../api/someservice/someendpoint.adoc[leveloffset=+2]
@@ -67,14 +65,13 @@ include::../api/someservice/someendpoint.adoc[leveloffset=+2]
 [#someservice_someendpointwithrest]
 === SomeEndpointWithREST Endpoint
 
-
 [cols=">1,<3"]
 
 |===
 | Name | SomeEndpointWithREST
-| Request Type | distrib:message[Empty]
+| Request Type | proto2asciidoc:message[Empty]
 | Streaming Request | {false-icon}
-| Return Type | distrib:message[Example]
+| Return Type | proto2asciidoc:message[Example]
 | Streaming Return | {false-icon}
 | REST Support | {true-icon}
 | REST Method | GET
@@ -86,7 +83,7 @@ include::../api/someservice/someendpoint.adoc[leveloffset=+2]
 ====
 [source,protobuf]
 ----
-include::../../examples/examples.proto[tag=SomeEndpointWithREST]
+include::/home/yt/proto2asciidoc/examples/examples.proto[tag=SomeEndpointWithREST]
 ----
 ====
 
@@ -98,7 +95,6 @@ include::../api/errors.adoc[leveloffset=+1]
 [#format_enum]
 == Format Enum
 // tag::Format[]
-
 
 .Format Overview
 [cols="2,1,3", options="header"]
@@ -123,7 +119,7 @@ include::../api/errors.adoc[leveloffset=+1]
 ====
 [source,protobuf]
 ----
-include::../../examples/examples.proto[tag=Format]
+include::/home/yt/proto2asciidoc/examples/examples.proto[tag=Format]
 ----
 ====
 // end::Format[]
@@ -137,7 +133,6 @@ include::../../examples/examples.proto[tag=Format]
 == Empty Message
 // tag::Empty[]
 
-
 .Empty Overview
 [cols="2,2,1,1", options="header"]
 |===
@@ -150,7 +145,7 @@ include::../../examples/examples.proto[tag=Format]
 ====
 [source,protobuf]
 ----
-include::../../examples/examples.proto[tag=Empty]
+include::/home/yt/proto2asciidoc/examples/examples.proto[tag=Empty]
 ----
 ====
 // end::Empty[]
@@ -179,7 +174,7 @@ Example for the generation
 ====
 [source,protobuf]
 ----
-include::../../examples/examples.proto[tag=Example]
+include::/home/yt/proto2asciidoc/examples/examples.proto[tag=Example]
 ----
 ====
 // end::Example[]
