@@ -4,6 +4,13 @@ include::about.adoc[]
 
 include::examples.adoc[]
 
+== Installation
+
+[source,shell]
+----
+go get github.com/productsupcom/proto2asciidoc/cmd/proto2asciidoc
+----
+
 == Usage
 
 include::../cmd/proto2asciidoc/main.go[tag=options,indent=0]

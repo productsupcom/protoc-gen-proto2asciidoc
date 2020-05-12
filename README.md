@@ -42,6 +42,12 @@ have to edit them by hand before commiting them to your repository.
 ./proto2asciidoc --source examples/examples.proto --out docs/generated/message_enums_only.adoc --overwrite
 ```
 
+## Installation
+
+``` shell
+go get github.com/productsupcom/proto2asciidoc/cmd/proto2asciidoc
+```
+
 ## Usage
 
 **--source string**
