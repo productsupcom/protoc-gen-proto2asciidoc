@@ -2,7 +2,7 @@
 
 include::about.adoc[]
 
-include::example.adoc[]
+include::examples.adoc[]
 
 == Usage
 
