@@ -83,7 +83,21 @@ To generate the docs you can run the following yourself:
 **Generate full api-docs.**
 
 ``` shell
-./proto2asciidoc --source $(pwd)/examples/examples.proto --out docs/generated/api.adoc --overwrite --api-docs
+./proto2asciidoc --source $(pwd)/examples/examples.proto \
+--out docs/generated/api.adoc --overwrite --api-docs
+```
+
+If this tool is used in conjunction with [code2asciidoc](https://github.com/productsupcom/code2asciidoc)
+you will most probably have sample adoc’s you want to include. This can be done
+as following.
+If there are multiple, simply comma separate them.
+
+**Generate full api-docs with API samples from code2asciidoc.**
+
+``` shell
+./proto2asciidoc --source $(pwd)/examples/examples.proto \
+--out docs/generated/api.adoc --overwrite --api-docs \
+--sample-files $(pwd)/docs/generated/api/someservice/response_samples.adoc
 ```
 
 The following is useful for imported Protobuf declaration (e.g. from Google).
