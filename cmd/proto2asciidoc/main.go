@@ -190,16 +190,16 @@ Version {version}
 	if apidocs {
 		var preface bytes.Buffer
 
+		preface.WriteString("// start included about.adoc (if found)\n")
 		if file := docPaths.GetFilepathFor("../about.adoc"); file != "" {
-			preface.WriteString("// start included about.adoc\n")
 			preface.WriteString("include::" + file + "[leveloffset=+1]\n")
-			preface.WriteString("// end included about.adoc\n\n")
 		}
+		preface.WriteString("// end included about.adoc\n\n")
+		preface.WriteString("// start included examples.adoc (if found)\n")
 		if file := docPaths.GetFilepathFor("../examples.adoc"); file != "" {
-			preface.WriteString("// start included examples.adoc\n")
 			preface.WriteString("include::" + file + "[leveloffset=+1]\n")
-			preface.WriteString("// end included examples.adoc\n\n")
 		}
+		preface.WriteString("// end included examples.adoc\n\n")
 
 		preface.WriteString("\n// start variables for the REST API endpoints\n")
 		for _, service := range services.Collection() {
@@ -216,11 +216,11 @@ Version {version}
 
 		// get the cmd docs
 		files := docPaths.GetFilesInDir("../cmd")
+		preface.WriteString("// start included files from the /cmd directory (if found any)\n")
 		for _, file := range files {
-			preface.WriteString("// start included files from the /cmd directory\n")
 			preface.WriteString("include::" + file + "[leveloffset=+1]\n")
-			preface.WriteString("// end included files from the /cmd directory\n\n")
 		}
+		preface.WriteString("// end included files from the /cmd directory\n\n")
 
 		if preface.Len() != 0 {
 			buf.Write(preface.Bytes())

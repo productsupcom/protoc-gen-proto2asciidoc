@@ -16,11 +16,11 @@ Version {version}
 // WARNING 
 // NEW THIS FILE IS GENERATED. DO NOT EDIT.
 
-// start included about.adoc
+// start included about.adoc (if found)
 include::../about.adoc[leveloffset=+1]
 // end included about.adoc
 
-// start included examples.adoc
+// start included examples.adoc (if found)
 include::../examples.adoc[leveloffset=+1]
 // end included examples.adoc
 
@@ -29,7 +29,7 @@ include::../examples.adoc[leveloffset=+1]
 :SomeService_SomeEndpointWithREST_rest: /v1/someservice/example
 // end variables for the REST API endpoints
 
-// start included files from the /cmd directory
+// start included files from the /cmd directory (if found any)
 include::../cmd/proto2asciidocs.adoc[leveloffset=+1]
 // end included files from the /cmd directory
 

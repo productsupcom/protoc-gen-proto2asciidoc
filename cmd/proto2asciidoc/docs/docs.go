@@ -510,13 +510,15 @@ func (p DocPaths) GetFilesInDir(target string) []string {
 
 		// check the contents of the dir
 		var files []string
-		filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
-			if !info.IsDir() {
-				// strip off the beginning of the path for asciidoc
-				files = append(files, filepath.Join(asciidocPath, filepath.Base(path)))
-			}
+		infos, err := ioutil.ReadDir(dir)
+		if err != nil {
 			return nil
-		})
+		}
+		for _, info := range infos {
+			if !info.IsDir() {
+				files = append(files, filepath.Join(asciidocPath, info.Name()))
+			}
+		}
 
 		return files
 	}
