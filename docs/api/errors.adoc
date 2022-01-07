@@ -1,3 +1,0 @@
-== Errors
-
-These are potential errors you may face...

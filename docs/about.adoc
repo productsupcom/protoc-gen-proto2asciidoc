@@ -1,32 +1,43 @@
 == About
 
-proto2asciidoc generates asciidoc documentation from a Protobuffer definition
-file. The goal of the project was to prevent API documentation inconsistenties
-between the actual API and the docs.
+proto2asciidoc is a https://github.com/protocolbuffers/protobuf/releases[protoc] plugin
+that generates asciidoc documentation from the Protobuffer IDL files.
 
+The goal of the project was to prevent API documentation inconsistenties
+between the actual API and the docs.
 By generating the code from the Protobuf definition the documentation is always
 in sync.
 
-It can either generate only the Protobuffer Messages/Enums as output or full
-api-docs output depending on the flags passed.
+The current version is a plugin, which is a from scratch rewrite of the previous one that
+generated asciidoc too but parsed the Protobuffer files itself.
 
 Can be used in conjunction with https://github.com/productsupcom/code2asciidoc[code2asciidoc]
 to produce even more consistent API documentation.
 
-== Variables
+== Options
 
-When using `api-docs` output, the tool will include a few variables. These can be
-set through asciidoctor variables.
+The following options for the plugin can be passed to protoc, the default for everything is off.
+Ensure the options are comma separated.
 
-Example how to do it in a Makefile
-
-.Makefile
-[source,Makefile]
+.Example
+[source,shell]
 ----
-include::../Makefile[tag=variables]
+--proto2asciidoc_opt=rest=on,sorted=on
 ----
 
-== Extension
+NOTE: All boolean values are either `on` or `off`
+
+|===
+| Option | Accepted Value | Description
+| extension | boolean | Enables the optional Ruby asciidoctor extension for more stylized hyperlinks
+| collapsible | boolean | When enabled the tables produced are collapsible through HTML
+| rest | boolean | Output the REST information for the Service endpoints too
+| icons | boolean | Instead of string for true and false asciidoc icons are used
+| sorted | boolean | When enabled the Services, Enum and Messages are sorted alphabetically vs the
+ order they appear in the file in.
+|===
+
+== Optional Extension
 
 This tool assumes the extension in `asciidoc/extension` will be loaded when using
 AsciiDoctor.
