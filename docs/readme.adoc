@@ -6,5 +6,5 @@ include::about.adoc[]
 
 [source,shell]
 ----
-go get github.com/productsupcom/proto2asciidoc/cmd/protoc-gen-proto2asciidoc
+go get github.com/productsupcom/protoc-gen-proto2asciidoc/cmd/protoc-gen-proto2asciidoc
 ----
