@@ -5,8 +5,8 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/productsupcom/proto2asciidoc/formatter"
 	"github.com/productsupcom/protoc-gen-kit/kit"
+	"github.com/productsupcom/protoc-gen-proto2asciidoc/formatter"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/pluginpb"
 )
