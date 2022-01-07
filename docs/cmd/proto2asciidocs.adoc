@@ -1,5 +1,0 @@
-== Usage
-
-----
-include::../../cmd/proto2asciidoc/main.go[tag=options,indent=0]
-----

@@ -1,31 +1,55 @@
 syntax = "proto3";
 package examples;
 
+import "google/api/annotations.proto";
+
+option go_package = "github.com/productsupcom/proto2asciidoc/example;example";
+
 // tag::Example[]
 // Example for the generation
-message Example {
-  string some_string = 1;
-  int32 some_int = 2;
+message Example { // this is the trailing comment for Example
+// This is the leading comment for some_string
+  string some_string = 1; // some further info for some_string
+  int32 some_int = 2; // some integer
+  Empty some_message = 3; // refers to a message
+  Format some_format = 4; // enums work too
+  repeated Foo foo = 5;
 }
 // end::Example[]
 
+// This is the leading comment for Foo
+enum Foo { // this is the trailing comment for Foo
+  // This comment is used for value BLA
+  BLA = 0; // trailing comment
+}
+
 // tag::Empty[]
+// Empty message is just empty
 message Empty {}
 // end::Empty[]
 
 // tag::Format[]
+// Enum for a format that could be defined
 enum Format {
-  YAML = 1;
+  UNSET = 0; // unset comment
+  YAML = 1; // yaml comment 
   JSON = 2;
   CSV = 3;
 }
 // end::Format[]
 
 // tag::SomeService[]
+// Service definition for SomeService
 service SomeService {
   // tag::SomeEndpoint[]
+  // SomeEndpoint wants an Example and returns an Empty
   rpc SomeEndpoint(Example) returns (Empty) {}
   // end::SomeEndpoint[]
+
+  // tag::SomeStreamingEndpoint[]
+  // SomeStreamingEndpoint wants an Example and returns an Empty
+  rpc SomeStreamingEndpoint(stream Example) returns (Empty) {}
+  // end::SomeStreamingEndpoint[]
 
   // tag::SomeEndpointWithREST[]
   rpc SomeEndpointWithREST(Empty) returns (Example) {

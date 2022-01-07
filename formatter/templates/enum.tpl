@@ -1,6 +1,7 @@
 [[{{ .Enum.Name }}_enum]]
 ## {{ .Enum.Name }} Enum
 {{ GetComments .Enum.Comments }}
+
 .{{ .Enum.Name }} Overview
 {{ if eq (index .Parameters "collapsible") "on" -}}
 [%collapsible]

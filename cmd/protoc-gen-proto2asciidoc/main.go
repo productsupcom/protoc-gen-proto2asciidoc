@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/productsupcom/proto2asciidoc/formatter"
-	"github.com/productsupcom/proto2asciidoc/kit"
+	"github.com/productsupcom/protoc-gen-kit/kit"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/pluginpb"
 )
@@ -14,7 +14,6 @@ import (
 var (
 	request  = &pluginpb.CodeGeneratorRequest{}
 	response = &pluginpb.CodeGeneratorResponse{}
-	desc     kit.Desc
 
 	writeWire = false
 )
@@ -39,10 +38,13 @@ func process(r io.Reader) []byte {
 		panic(err)
 	}
 
-	desc = kit.DescFromRequest(request)
+	kit.CleanCommentFn = formatter.CleanComment
+	descs := kit.DescsFromRequest(request)
 
 	var output formatter.Asciidoc
-	response.File = output.GetFiles(desc)
+	for _, desc := range descs {
+		response.File = append(response.File, output.GetFile(desc))
+	}
 
 	out, err := proto.Marshal(response)
 	if err != nil {
